@@ -1,11 +1,12 @@
 package controllers
 
 import (
+	"net/http"
+	"strconv"
+
 	"coffee-delivery/dto"
 	"coffee-delivery/models"
 	"coffee-delivery/services"
-	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,7 +18,7 @@ func CreateCoffee(c *gin.Context) {
 		return
 	}
 
-	var tags []models.Tag
+	tags := make([]models.Tag, 0)
 	for _, tagName := range req.Tags {
 		tags = append(tags, models.Tag{Nome: tagName})
 	}
@@ -57,5 +58,6 @@ func DeleteCoffee(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"erro": "Café não encontrado"})
 		return
 	}
+
 	c.Status(http.StatusNoContent)
 }

@@ -14,7 +14,7 @@ func CreateCoffee(cafe models.Coffee) error {
 
 func FindAllCoffees() ([]models.Coffee, error) {
 	var cafes []models.Coffee
-	err := database.DB.Preload("Tags").Find(&cafes).Error
+	err := database.DB.Preload("Tags").Preload("Pedidos").Find(&cafes).Error
 	return cafes, err
 }
 
